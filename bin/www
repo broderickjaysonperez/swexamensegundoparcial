@@ -3,9 +3,26 @@
 /**
  * Module dependencies.
  */
+//======================================================
+var mongoClient = require('mongodb').MongoClient;
+ var mongoUri = 'mongodb://localhost:27017';
+ var mongoDBName = 'examenincidente';
+ var mongoOptions ={useNewUrlParser:true};
 
-var app = require('../app');
-var debug = require('debug')('incidentes:server');
+mongoClient.connect(mongoUri, mongoOptions, (err,conn)=>{
+
+  if(err){
+
+    console.log(err);
+    process.exit(1);
+  }
+//creacion de base de datos
+  var db = conn.db(mongoDBName);
+//todo lo de abajo c copia
+
+//inyectar ala aplicacion
+var app = require('../app')(db);
+var debug = require('debug')('incidente:server');
 var http = require('http');
 
 /**
@@ -88,3 +105,8 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+});//connect final
+
+
