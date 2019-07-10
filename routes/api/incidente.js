@@ -62,11 +62,11 @@ var newincidente = Object.assign({},
     incidenteColl.isertOne(newincidente,(err, rslt)=>{
     if(err){
     console.log(err);
-    return res.status(404).json({"error":"no se pudo agregar nueva incidente"});
+    return res.status(404).json({"error":"Agrega nuevo incidente"});
     }
         if(rslt.ops.length===0){
         console.log(rslt);
-        return res.status(404).json({"error":"no se pudo agregar nueva incidente"});
+        return res.status(404).json({"error":"Agrega nuevo incidente"});
     
         }
 return res.status(200).json(rslt.ops[0]);
@@ -75,8 +75,56 @@ return res.status(200).json(rslt.ops[0]);
 
 });//post
 
+router.put('/:id',(req, res, nex)=>{
+var query = {"_id":new ObjectID(req.params.id)};
+var update ={"$inc":{"views":1, "likes":"1"}};
+
+incidenteColl.updatesOne(query ,update,(err ,rslt)=>{
+
+    if(err){
+        console.log(err);
+        return res.status(404).json({"error":"no se pudo modificar nueva incidente"});
+        }
+            if(rslt.ops.length===0){
+            console.log(rslt);
+            return res.status(404).json({"error":"no se pudo modificar nueva incidente"});
+        
+            }
+    return res.status(200).json(rslt.ops[0]);
+    
+        
+
+});
+router.delete('/:id',(req, res, nex)=>{
+    var query = {"_id":new ObjectID(req.params.id)};
+  
+    
+    incidenteColl.removeOne(query ,(err ,rslt)=>{
+    
+        if(err){
+            console.log(err);
+            return res.status(404).json({"error":"no se pudo eliminar nueva incidente"});
+            }
+                if(rslt.ops.length===0){
+                console.log(rslt);
+                return res.status(404).json({"error":"no se pudo eliminar nueva incidente"});
+            
+                }
+        return res.status(200).json(rslt.ops[0]);
+        
+            
+    
+    });
+
+
+});
+
+
+
+
+
 
 return router;
 }
-module.exports = initIncidente;
+module.exports = initIncidente;//ver
 
