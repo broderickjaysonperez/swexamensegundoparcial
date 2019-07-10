@@ -85,12 +85,8 @@ incidenteColl.updatesOne(query ,update,(err ,rslt)=>{
         console.log(err);
         return res.status(404).json({"error":"no se pudo modificar nueva incidente"});
         }
-            if(rslt.ops.length===0){
-            console.log(rslt);
-            return res.status(404).json({"error":"no se pudo modificar nueva incidente"});
-        
-            }
-    return res.status(200).json(rslt.ops[0]);
+            
+    return res.status(200).json(rslt);
     
         
 
@@ -105,12 +101,8 @@ router.delete('/:id',(req, res, nex)=>{
             console.log(err);
             return res.status(404).json({"error":"no se pudo eliminar nueva incidente"});
             }
-                if(rslt.ops.length===0){
-                console.log(rslt);
-                return res.status(404).json({"error":"no se pudo eliminar nueva incidente"});
-            
-                }
-        return res.status(200).json(rslt.ops[0]);
+               
+        return res.status(200).json(rslt);
         
             
     
