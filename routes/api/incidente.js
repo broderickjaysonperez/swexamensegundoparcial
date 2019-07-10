@@ -118,11 +118,7 @@ router.delete('/:id',(req, res, nex)=>{
 
 
 });
-
-
-
-
-
+});
 
 return router;
 }
